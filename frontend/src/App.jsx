@@ -1,35 +1,45 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useEffect, useState } from 'react'
 import './App.css'
+import { Routes, Route } from 'react-router'
+import { HomePage } from './pages/HomePage'
+import NewMessage from './pages/NewMessage'
+import { Link } from 'react-router'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [data, setData] = useState([]);
+  const [msgs, setMsgs] = useState([]);
+
+  const getData = async () => {
+    try {
+      const req = await fetch(`http://localhost:3000/messages/all`);
+      const res = await req.json();
+      console.log(res);
+      setData(res);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div>
+      <div className="navbar bg-base-100 shadow-sm flex flex-wrap">
+        <div className="flex-1">
+          <Link to={"/"} className="btn btn-ghost text-xl">Mini Message Board</Link>
+        </div>
+        <div>
+          <Link to={"/new"} className='btn'>New Message</Link>
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+      <Routes>
+        <Route path="/" element={<HomePage data={data} />} />
+        <Route path="/new" element={<NewMessage />} />
+      </Routes>
+    </div>
+  );
 }
 
 export default App
