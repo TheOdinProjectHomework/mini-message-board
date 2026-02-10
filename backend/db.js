@@ -1,4 +1,4 @@
-const messages = [
+export const messages = [
   {
     text: "Hi there!",
     user: "Amando",
