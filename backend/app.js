@@ -3,6 +3,7 @@ import messagesRouter from "./routes/messagesRouter.js";
 import cors from "cors"
 const app = express();
 app.use(cors());
+app.use(express.json());
 
 if(process.env.NODE_ENV !== "production") {
     app.use(
