@@ -10,9 +10,9 @@ function App() {
   const [msgs, setMsgs] = useState([]);
 
   const API_URL =
-    import.meta.env.NODE_ENV !== "production"
+    import.meta.env.NODE_ENV === "development"
       ? "http://localhost:3000/messages"
-      : "https://mini-message-board-qefw.vercel.app/messages/";
+      : "/messages";
 
   const getData = async () => {
     try {
