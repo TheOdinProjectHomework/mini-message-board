@@ -16,7 +16,7 @@ function App() {
 
   const getData = async () => {
     try {
-      const req = await fetch(`http://localhost:3000/messages/all`);
+      const req = await fetch(`${API_URL}/all`);
       const res = await req.json();
       console.log(res);
       setData(res);
