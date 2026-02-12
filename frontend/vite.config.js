@@ -6,7 +6,7 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   server: {
-    post: 3000,
+    port: 3000,
     proxy: {
       "/messages": {
         target: "http://localhost:5000",
