@@ -10,7 +10,7 @@ function App() {
   const [msgs, setMsgs] = useState([]);
 
   const API_URL =
-    import.meta.env.MODE === "development"
+    import.meta.env.NODE_ENV === "development"
       ? "http://localhost:3000/messages/all"
       : "/messages/all";
 
