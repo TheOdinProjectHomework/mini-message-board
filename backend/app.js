@@ -2,9 +2,12 @@ import express from "express"
 import messagesRouter from "./routes/messagesRouter.js";
 import cors from "cors"
 import path from 'path';
+import { fileURLToPath } from "url";
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const app = express();
-const __dirname = path.resolve();
+
 app.use(cors());
 app.use(express.json());
 
@@ -17,15 +20,14 @@ if(process.env.NODE_ENV !== "production") {
 }
 
 app.use("/messages", messagesRouter);
-app.get("/", (req, res) => {
-    res.send("Hello world");
-})
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../frontend/dist")));
+  const distPath = path.join(__dirname, "../frontend/dist");
 
-  app.get((req, res) => {
-    res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
+  app.use(express.static(distPath));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(distPath, "index.html"));
   })
 }
 
