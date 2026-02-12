@@ -9,6 +9,11 @@ function App() {
   const [data, setData] = useState([]);
   const [msgs, setMsgs] = useState([]);
 
+  const API_URL =
+    import.meta.env.MODE === "development"
+      ? "http://localhost:3000/messages/all"
+      : "/messages/all";
+
   const getData = async () => {
     try {
       const req = await fetch(`http://localhost:3000/messages/all`);
