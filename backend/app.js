@@ -1,7 +1,9 @@
 import express from "express"
 import messagesRouter from "./routes/messagesRouter.js";
 import cors from "cors"
-import path from 'path';
+import path from 'path'
+import dotenv from "dotenv"
+dotenv.config();
 import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -10,6 +12,8 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+
+// console.log(process.env.NODE_ENV);
 
 if(process.env.NODE_ENV !== "production") {
     app.use(
@@ -26,7 +30,7 @@ if (process.env.NODE_ENV === "production") {
 
   app.use(express.static(distPath));
 
-  app.get("*", (req, res) => {
+  app.get((req, res) => {
     res.sendFile(path.join(distPath, "index.html"));
   })
 }
