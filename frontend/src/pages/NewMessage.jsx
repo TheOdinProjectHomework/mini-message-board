@@ -8,6 +8,11 @@ const NewMessage = ({ setData, data}) => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
+    const API_URL =
+    import.meta.VITE_NODE_ENV === "development"
+      ? "http://localhost:3000/messages"
+      : "/messages";
+
   const handlePost = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -24,7 +29,7 @@ const NewMessage = ({ setData, data}) => {
       added: date
     }
     try {
-      const req = await fetch(`http://localhost:3000/messages/new`, {
+      const req = await fetch(`${API_URL}/new`, {
         method: 'POST',
         headers: {'Content-type': 'application/json'},
         body: JSON.stringify(newMessage)
