@@ -7,7 +7,6 @@ import { Link } from 'react-router'
 
 function App() {
   const [data, setData] = useState([]);
-  const [msgs, setMsgs] = useState([]);
 
   const API_URL =
     import.meta.VITE_NODE_ENV === "development"
@@ -18,7 +17,6 @@ function App() {
     try {
       const req = await fetch(`${API_URL}/all`);
       const res = await req.json();
-      console.log(res);
       setData(res);
     } catch (error) {
       console.log(error);

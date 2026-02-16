@@ -2,7 +2,7 @@ import { useState} from 'react'
 import { useNavigate, Link } from 'react-router';
 import toast from 'react-hot-toast';
 
-const NewMessage = ({ setData, data}) => {
+const NewMessage = ({ setData }) => {
   const [username, setUsername] = useState("");
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
@@ -35,7 +35,6 @@ const NewMessage = ({ setData, data}) => {
         body: JSON.stringify(newMessage)
       });
       if(req.ok) {
-        console.log("ok");
         setData((prev) => [newMessage, ...prev]);
         setLoading(false);
         toast.success("New Message created!");
